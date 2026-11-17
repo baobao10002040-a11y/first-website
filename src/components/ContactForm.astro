@@ -1,0 +1,113 @@
+---
+import { site } from "../data/site";
+import { industries } from "../data/industries";
+import { products } from "../data/products";
+
+const inputClass =
+  "w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-navy-900 placeholder-slate-400 transition focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30";
+const labelClass = "mb-1.5 block text-sm font-semibold text-navy-900";
+---
+
+<form id="inquiry-form" data-email={site.email} class="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="name" class={labelClass}>Full name *</label>
+      <input id="name" name="name" type="text" required placeholder="Your name" class={inputClass} />
+    </div>
+    <div>
+      <label for="company" class={labelClass}>Company</label>
+      <input id="company" name="company" type="text" placeholder="Company name" class={inputClass} />
+    </div>
+  </div>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="email" class={labelClass}>Work email *</label>
+      <input id="email" name="email" type="email" required placeholder="you@company.com" class={inputClass} />
+    </div>
+    <div>
+      <label for="country" class={labelClass}>Country</label>
+      <input id="country" name="country" type="text" placeholder="Country" class={inputClass} />
+    </div>
+  </div>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="industry" class={labelClass}>Industry</label>
+      <select id="industry" name="industry" class={inputClass}>
+        <option value="">Select industry…</option>
+        {industries.map((ind) => <option value={ind.name}>{ind.name}</option>)}
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div>
+      <label for="product" class={labelClass}>Product interest</label>
+      <select id="product" name="product" class={inputClass}>
+        <option value="">Select product…</option>
+        {products.map((p) => <option value={p.name}>{p.name}</option>)}
+        <option value="Not sure yet">Not sure yet</option>
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <label for="message" class={labelClass}>Message</label>
+    <textarea
+      id="message"
+      name="message"
+      rows="5"
+      placeholder="Tell us about your water quality, sludge type, treatment goal or volume…"
+      class={inputClass}
+    ></textarea>
+  </div>
+
+  <div>
+    <button type="submit" class="btn btn-primary w-full sm:w-auto">
+      Send inquiry
+    </button>
+    <p id="form-note" class="mt-3 hidden text-sm font-medium text-teal-700">
+      Your email client has been opened with this inquiry — or email us directly.
+    </p>
+    <p class="mt-3 text-xs text-slate-500">
+      By submitting, you agree to be contacted by EfanChem about your inquiry.
+    </p>
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById("inquiry-form") as HTMLFormElement | null;
+  const note = document.getElementById("form-note");
+
+  // Prefill product/industry from URL query params (e.g. /contact/?product=...)
+  const params = new URLSearchParams(window.location.search);
+  const prefill = (name: string) => {
+    const value = params.get(name);
+    if (!value) return;
+    const select = form?.querySelector(`select[name="${name}"]`) as HTMLSelectElement | null;
+    if (select && Array.from(select.options).some((o) => o.value === value)) {
+      select.value = value;
+    }
+  };
+  prefill("product");
+  prefill("industry");
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const email = form.dataset.email || "sales@efanchem.com";
+    const subject = `Product inquiry — ${data.get("name")} (${data.get("company") || "no company"})`;
+    const lines = [
+      `Name: ${data.get("name")}`,
+      `Company: ${data.get("company") || "-"}`,
+      `Email: ${data.get("email")}`,
+      `Country: ${data.get("country") || "-"}`,
+      `Industry: ${data.get("industry") || "-"}`,
+      `Product interest: ${data.get("product") || "-"}`,
+      "",
+      "Message:",
+      String(data.get("message") || ""),
+    ];
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+    note?.classList.remove("hidden");
+  });
+</script>

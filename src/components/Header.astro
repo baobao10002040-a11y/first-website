@@ -1,0 +1,90 @@
+---
+import Icon from "./Icon.astro";
+import { site, navigation } from "../data/site";
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<header class="sticky top-0 z-50 border-b border-slate-100 bg-white/85 backdrop-blur-md">
+  <div class="container flex h-18 items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2.5" aria-label={`${site.name} — Home`}>
+      <span class="grid h-10 w-10 place-items-center rounded-xl bg-navy-900 text-teal-300">
+        <Icon name="droplet" class="h-5 w-5" />
+      </span>
+      <span class="leading-tight">
+        <span class="block font-display text-lg font-extrabold tracking-tight text-navy-900">Efan<span class="text-teal-500">Chem</span></span>
+        <span class="block text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-slate-400">Water Treatment</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Main">
+      {
+        navigation.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "rounded-full px-4 py-2 text-sm font-semibold transition-colors",
+              isActive(item.href)
+                ? "bg-navy-50 text-navy-900"
+                : "text-slate-600 hover:bg-slate-50 hover:text-navy-900",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="/contact/" class="btn btn-primary hidden sm:inline-flex">
+        Request a Sample
+        <Icon name="arrow-right" class="h-4 w-4" />
+      </a>
+      <button
+        id="menu-toggle"
+        class="grid h-10 w-10 place-items-center rounded-lg border border-slate-200 text-navy-900 md:hidden"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path class="menu-open-icon" d="M4 7h16M4 12h16M4 17h16" />
+          <path class="menu-close-icon hidden" d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-slate-100 bg-white md:hidden">
+    <nav class="container flex flex-col gap-1 py-4" aria-label="Mobile">
+      {navigation.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "rounded-lg px-4 py-2.5 text-sm font-semibold",
+            isActive(item.href) ? "bg-navy-50 text-navy-900" : "text-slate-600",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href="/contact/" class="btn btn-primary mt-2">Request a Sample</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const openIcon = toggle?.querySelector(".menu-open-icon");
+  const closeIcon = toggle?.querySelector(".menu-close-icon");
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    openIcon?.classList.toggle("hidden", isOpen);
+    closeIcon?.classList.toggle("hidden", !isOpen);
+  });
+</script>

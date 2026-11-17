@@ -1,0 +1,32 @@
+---
+import Icon from "./Icon.astro";
+import { cases } from "../data/cases";
+---
+
+<div class="grid gap-6 md:grid-cols-2">
+  {cases.map((c) => (
+    <article class="flex flex-col rounded-2xl border border-slate-200 bg-white p-7">
+      <div class="flex items-center justify-between gap-3">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-navy-50 px-3 py-1 text-xs font-semibold text-navy-700">
+          {c.sector}
+        </span>
+        <span class="text-xs font-medium text-slate-400">{c.region}</span>
+      </div>
+      <h3 class="mt-4 font-display text-lg font-bold text-navy-900">{c.title}</h3>
+      <p class="mt-2 text-sm leading-relaxed text-slate-600">{c.challenge}</p>
+      <div class="mt-4 space-y-2 border-t border-slate-100 pt-4">
+        {c.solution.slice(0, 3).map((s) => (
+          <p class="flex items-start gap-2 text-sm text-slate-600">
+            <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-teal-500" />
+            {s}
+          </p>
+        ))}
+      </div>
+      <ul class="mt-5 flex flex-wrap gap-2">
+        {c.results.slice(0, 3).map((r) => (
+          <li class="rounded-full bg-teal-50 px-3 py-1 text-xs font-medium text-teal-700">{r}</li>
+        ))}
+      </ul>
+    </article>
+  ))}
+</div>

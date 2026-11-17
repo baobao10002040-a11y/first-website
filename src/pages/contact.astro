@@ -1,0 +1,68 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Icon from "../components/Icon.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { site } from "../data/site";
+
+const steps = [
+  { title: "We review your details", text: "Water quality, sludge type and treatment goal." },
+  { title: "We recommend grades", text: "Two to three candidate products with dosing guidance." },
+  { title: "We ship samples", text: "Then support jar testing and confirm the right grade." },
+];
+---
+
+<Layout
+  title="Contact & Request a Sample"
+  description="Request a sample or quote from EfanChem. Tell us about your water or sludge and we will recommend the right grade and dosage."
+  canonicalPath="/contact/"
+>
+  <PageHeader
+    eyebrow="Contact"
+    title="Request a sample or a quote"
+    subtitle="Tell us about your water, sludge or treatment goal. We typically respond within one working day."
+  />
+
+  <section class="bg-slate-50 py-16 sm:py-20">
+    <div class="container grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="space-y-8">
+        <div>
+          <h2 class="font-display text-xl font-bold text-navy-900">Contact details</h2>
+          <ul class="mt-5 space-y-4">
+            <li class="flex items-start gap-3">
+              <Icon name="mail" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+              <a href={`mailto:${site.email}`} class="font-medium text-navy-900 hover:text-teal-600">{site.email}</a>
+            </li>
+            <li class="flex items-start gap-3">
+              <Icon name="phone" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+              <span class="text-slate-600">{site.phone}</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Icon name="map-pin" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+              <span class="text-slate-600">{site.address}</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 class="font-display text-lg font-bold text-navy-900">What happens next</h2>
+          <ol class="mt-4 space-y-4">
+            {steps.map((s, i) => (
+              <li class="flex gap-3">
+                <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy-900 font-display text-sm font-bold text-white">
+                  {i + 1}
+                </span>
+                <div>
+                  <p class="font-semibold text-navy-900">{s.title}</p>
+                  <p class="text-sm text-slate-600">{s.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+
+      <ContactForm />
+    </div>
+  </section>
+</Layout>

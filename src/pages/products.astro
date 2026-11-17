@@ -1,0 +1,100 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Icon from "../components/Icon.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { products } from "../data/products";
+import { site } from "../data/site";
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: products.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: { "@type": "Product", name: p.name, description: p.description },
+  })),
+};
+---
+
+<Layout
+  title="Products & Specifications"
+  description="Polyacrylamide (PAM), polyaluminium chloride (PAC), polyferric sulfate (PFS), ferrous sulfate and activated carbon for water and sludge treatment."
+  canonicalPath="/products/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+  </Fragment>
+
+  <PageHeader
+    eyebrow="Products"
+    title="Water-treatment chemicals & specifications"
+    subtitle="Coagulants, flocculants and adsorption media with industry-standard specifications. Contact us for your exact grade and packaging."
+  />
+
+  <section class="bg-slate-50 py-16 sm:py-20">
+    <div class="container space-y-10">
+      {products.map((p) => (
+        <article
+          id={p.slug}
+          class="scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-7 sm:p-10"
+        >
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div class="flex items-start gap-4">
+              <span class="grid h-13 w-13 shrink-0 place-items-center rounded-2xl bg-navy-50 text-navy-700">
+                <Icon name={p.icon} class="h-7 w-7" />
+              </span>
+              <div>
+                <h2 class="font-display text-2xl font-extrabold text-navy-900">{p.name}</h2>
+                <p class="mt-1 text-sm font-semibold text-teal-600">{p.tagline}</p>
+              </div>
+            </div>
+            <a href={`/contact/?product=${encodeURIComponent(p.name)}`} class="btn btn-primary shrink-0">
+              Inquire
+              <Icon name="arrow-right" class="h-4 w-4" />
+            </a>
+          </div>
+
+          <div class="mt-8 grid gap-8 lg:grid-cols-2">
+            <div>
+              <p class="leading-relaxed text-slate-600">{p.description}</p>
+              <div class="mt-5">
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Grades available</p>
+                <div class="mt-2 flex flex-wrap gap-2">
+                  {p.forms.map((f) => (
+                    <span class="rounded-full bg-teal-50 px-3 py-1 text-sm font-medium text-teal-700">{f}</span>
+                  ))}
+                </div>
+              </div>
+              <div class="mt-6">
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Typical applications</p>
+                <ul class="mt-2 space-y-2">
+                  {p.applications.map((a) => (
+                    <li class="flex items-start gap-2 text-sm text-slate-600">
+                      <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-teal-500" />
+                      {a}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <p class="text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Key specifications</p>
+              <dl class="mt-3 divide-y divide-slate-200">
+                {p.specs.map((s) => (
+                  <div class="flex items-start justify-between gap-4 py-2.5">
+                    <dt class="text-sm font-medium text-slate-500">{s.label}</dt>
+                    <dd class="text-right text-sm font-semibold text-navy-900">{s.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand title="Need a custom grade or packaging?" subtitle="Tell us your application and we will recommend the right product and supply plan." />
+</Layout>

@@ -1,0 +1,25 @@
+---
+import Icon from "./Icon.astro";
+import type { Industry } from "../data/industries";
+
+interface Props {
+  industry: Industry;
+}
+
+const { industry } = Astro.props;
+---
+
+<article class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-lg hover:shadow-slate-200/60">
+  <span class="grid h-12 w-12 place-items-center rounded-xl bg-teal-50 text-teal-600">
+    <Icon name={industry.icon} class="h-6 w-6" />
+  </span>
+  <h3 class="mt-5 font-display text-lg font-bold text-navy-900">{industry.name}</h3>
+  <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{industry.overview}</p>
+  <a
+    href={`/industries/#${industry.slug}`}
+    class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 transition-colors hover:text-teal-700"
+  >
+    See how we help
+    <Icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+  </a>
+</article>

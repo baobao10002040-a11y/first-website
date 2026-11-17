@@ -1,12 +1,197 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import TrustBar from "../components/TrustBar.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Icon from "../components/Icon.astro";
+import ProductCard from "../components/ProductCard.astro";
+import IndustryCard from "../components/IndustryCard.astro";
+import WhyUs from "../components/WhyUs.astro";
+import ProcessSteps from "../components/ProcessSteps.astro";
+import CaseStudy from "../components/CaseStudy.astro";
+import Faq from "../components/Faq.astro";
+import CtaBand from "../components/CtaBand.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { products } from "../data/products";
+import { industries } from "../data/industries";
+import { site } from "../data/site";
 ---
 
-<Layout title="Home" description="A static website built with Astro and Tailwind CSS.">
-  <main class="min-h-screen grid place-items-center bg-slate-50 p-8">
-    <div class="text-center">
-      <h1 class="text-4xl font-bold text-slate-900">Astro</h1>
-      <p class="mt-4 text-slate-600">Your new site is ready.</p>
+<Layout
+  title="Water Treatment Chemicals for Industrial & Municipal Applications"
+  description="EfanChem supplies PAM, PAC, PFS and activated carbon with water-sample testing and technical support for overseas distributors, EPC contractors and industrial plants."
+>
+  <Hero />
+  <TrustBar />
+
+  <!-- About intro -->
+  <section class="bg-white py-20 sm:py-24">
+    <div class="container grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <SectionHeading
+          align="left"
+          eyebrow="Who we are"
+          title="A comprehensive supplier of water-treatment chemicals"
+        />
+        <p class="mt-5 leading-relaxed text-slate-600">
+          Efan Chem is focused on the R&amp;D, production and export of water-treatment
+          chemicals. Core products include polyacrylamide, polyaluminium chloride,
+          polyferric sulfate, ferrous sulfate, activated carbon and related functional
+          chemicals.
+        </p>
+        <p class="mt-4 leading-relaxed text-slate-600">
+          We serve municipal wastewater, industrial wastewater, mining, coal, paper,
+          textile, food processing, stone processing, drinking water and sludge
+          dewatering — providing integrated solutions from product selection and sample
+          testing to process optimisation and bulk delivery.
+        </p>
+        <a href="/about/" class="btn btn-outline mt-8">
+          More about EfanChem
+          <Icon name="arrow-right" class="h-4 w-4" />
+        </a>
+      </div>
+      <div class="rounded-3xl border border-slate-200 bg-slate-50 p-8">
+        <p class="font-display text-lg font-bold text-navy-900">What you actually buy</p>
+        <ul class="mt-5 space-y-4">
+          <li class="flex gap-3">
+            <Icon name="check" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+            <span class="text-sm text-slate-600">Lower chemical consumption and clearer effluent</span>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+            <span class="text-sm text-slate-600">Lower sludge moisture and higher equipment throughput</span>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+            <span class="text-sm text-slate-600">Stable operation and lower total treatment cost</span>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+            <span class="text-sm text-slate-600">One supplier for a full programme, not a single chemical</span>
+          </li>
+        </ul>
+      </div>
     </div>
-  </main>
+  </section>
+
+  <!-- Products -->
+  <section class="bg-slate-50 py-20 sm:py-24">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Products"
+        title="A complete chemical programme"
+        subtitle="Coagulants, flocculants and adsorption media for every stage of water and sludge treatment."
+      />
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {products.map((p) => <ProductCard product={p} />)}
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/products/" class="btn btn-navy">
+          View all products &amp; specifications
+          <Icon name="arrow-right" class="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries -->
+  <section class="bg-white py-20 sm:py-24">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Industries"
+        title="Who we serve"
+        subtitle="From regional distributors to municipal plants and heavy industry — each with a tailored programme."
+      />
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {industries.map((ind) => <IndustryCard industry={ind} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why us -->
+  <section class="bg-slate-50 py-20 sm:py-24">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Why EfanChem"
+        title="Five reasons buyers choose us"
+        subtitle="We compete on application results and supply stability — not just price."
+      />
+      <div class="mt-12">
+        <WhyUs />
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="bg-white py-20 sm:py-24">
+    <div class="container">
+      <SectionHeading
+        eyebrow="How we work"
+        title="Water-sample testing & selection, step by step"
+        subtitle="A standardised service that takes you from water analysis to a confirmed grade and dosage."
+      />
+      <div class="mt-12">
+        <ProcessSteps />
+      </div>
+    </div>
+  </section>
+
+  <!-- Case studies -->
+  <section class="bg-slate-50 py-20 sm:py-24">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Case studies"
+        title="Results our customers see"
+        subtitle="Representative scenarios across distribution, engineering and industrial water treatment."
+      />
+      <div class="mt-12">
+        <CaseStudy />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-white py-20 sm:py-24">
+    <div class="container">
+      <SectionHeading
+        eyebrow="FAQ"
+        title="Common questions, answered"
+        subtitle="How we solve the five pain points buyers tell us about most."
+      />
+      <div class="mt-12">
+        <Faq />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+
+  <!-- Contact -->
+  <section class="bg-slate-50 py-20 sm:py-24">
+    <div class="container grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <SectionHeading
+          align="left"
+          eyebrow="Contact"
+          title="Request a sample or a quote"
+          subtitle="Tell us about your water, sludge or treatment goal. We will recommend the right grade and dosage — usually within one working day."
+        />
+        <ul class="mt-8 space-y-4">
+          <li class="flex items-start gap-3">
+            <Icon name="mail" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+            <a href={`mailto:${site.email}`} class="font-medium text-navy-900 hover:text-teal-600">{site.email}</a>
+          </li>
+          <li class="flex items-start gap-3">
+            <Icon name="phone" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+            <span class="text-slate-600">{site.phone} · WhatsApp available</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <Icon name="map-pin" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+            <span class="text-slate-600">{site.address}</span>
+          </li>
+        </ul>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
 </Layout>

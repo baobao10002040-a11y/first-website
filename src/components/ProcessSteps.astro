@@ -1,0 +1,24 @@
+---
+const steps = [
+  { title: "Collect water & process data", text: "Gather water quality, sludge and treatment-goal information." },
+  { title: "Understand the source", text: "Identify the wastewater origin and treatment target." },
+  { title: "Recommend candidates", text: "Propose two to three suitable product grades." },
+  { title: "Ship samples", text: "Send trial samples with clear application notes." },
+  { title: "Guide jar testing", text: "Walk you through the beaker test step by step." },
+  { title: "Compare results", text: "Assess settling speed, turbidity, sludge volume and dewatering." },
+  { title: "Confirm grade & dosage", text: "Lock in the optimal product and dosing range." },
+  { title: "Support supply", text: "Provide bulk purchasing and on-site application guidance." },
+];
+---
+
+<ol class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+  {steps.map((step, i) => (
+    <li class="relative rounded-2xl border border-slate-200 bg-white p-6">
+      <span class="font-display text-3xl font-extrabold text-teal-500/30">
+        {String(i + 1).padStart(2, "0")}
+      </span>
+      <h3 class="mt-2 font-display font-bold text-navy-900">{step.title}</h3>
+      <p class="mt-1.5 text-sm leading-relaxed text-slate-600">{step.text}</p>
+    </li>
+  ))}
+</ol>

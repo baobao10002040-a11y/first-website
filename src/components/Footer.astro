@@ -1,0 +1,83 @@
+---
+import Icon from "./Icon.astro";
+import { site, navigation } from "../data/site";
+import { products } from "../data/products";
+import { industries } from "../data/industries";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-navy-950 text-slate-300">
+  <div class="container grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <a href="/" class="flex items-center gap-2.5" aria-label={`${site.name} — Home`}>
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-teal-300">
+          <Icon name="droplet" class="h-5 w-5" />
+        </span>
+        <span class="leading-tight">
+          <span class="block font-display text-lg font-extrabold tracking-tight text-white">Efan<span class="text-teal-400">Chem</span></span>
+          <span class="block text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-slate-500">Water Treatment</span>
+        </span>
+      </a>
+      <p class="mt-5 max-w-xs text-sm leading-relaxed text-slate-400">
+        Stable water-treatment chemicals, on-site testing and continuous technical
+        support — for distributors, EPC contractors and industrial plants worldwide.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wider text-white">Products</h3>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {products.map((p) => (
+          <li>
+            <a href={`/products/#${p.slug}`} class="text-slate-400 transition-colors hover:text-teal-300">
+              {p.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wider text-white">Industries</h3>
+      <ul class="mt-4 space-y-2.5 text-sm">
+        {industries.map((ind) => (
+          <li>
+            <a href={`/industries/#${ind.slug}`} class="text-slate-400 transition-colors hover:text-teal-300">
+              {ind.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-semibold uppercase tracking-wider text-white">Contact</h3>
+      <ul class="mt-4 space-y-3 text-sm">
+        <li class="flex items-start gap-2.5">
+          <Icon name="mail" class="mt-0.5 h-4 w-4 shrink-0 text-teal-400" />
+          <a href={`mailto:${site.email}`} class="text-slate-400 hover:text-teal-300">{site.email}</a>
+        </li>
+        <li class="flex items-start gap-2.5">
+          <Icon name="phone" class="mt-0.5 h-4 w-4 shrink-0 text-teal-400" />
+          <a href={`tel:${site.phone.replace(/\s/g, "")}`} class="text-slate-400 hover:text-teal-300">{site.phone}</a>
+        </li>
+        <li class="flex items-start gap-2.5">
+          <Icon name="map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-teal-400" />
+          <span class="text-slate-400">{site.address}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container flex flex-col items-center justify-between gap-3 py-6 text-xs text-slate-500 sm:flex-row">
+      <p>© {year} {site.legalName}. All rights reserved.</p>
+      <nav class="flex gap-5" aria-label="Footer">
+        {navigation.map((item) => (
+          <a href={item.href} class="hover:text-teal-300">{item.label}</a>
+        ))}
+      </nav>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,147 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Icon from "../components/Icon.astro";
+import CtaBand from "../components/CtaBand.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { productLines } from "../data/industries";
+
+const qcItems = [
+  "Raw-material control",
+  "Molecular-weight & charge control",
+  "Solid-content & active-ingredient control",
+  "Particle-size & dissolution-speed control",
+  "Batch-lot retention samples",
+  "COA & third-party testing",
+  "Moisture-proof packaging",
+  "Container-loading & delivery management",
+];
+
+const exportItems = [
+  "Neutral packaging",
+  "Customer-brand (OEM) packaging",
+  "Bags, jumbo bags or liquid",
+  "Custom label formats",
+  "Custom COA",
+  "SDS, TDS & origin documents",
+  "Sea & land freight options",
+  "Small trial orders to long-term framework contracts",
+];
+---
+
+<Layout
+  title="About EfanChem"
+  description="Efan Chem is a water-treatment chemicals supplier focused on industrial wastewater and sludge dewatering — stable chemicals, on-site testing and continuous technical support."
+  canonicalPath="/about/"
+>
+  <PageHeader
+    eyebrow="About"
+    title="A supplier you can build a long-term programme on"
+    subtitle="We are a water-treatment chemicals supplier focused on industrial wastewater and sludge dewatering for overseas distributors, engineering companies and industrial plants."
+  />
+
+  <!-- Positioning -->
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+      <div>
+        <SectionHeading
+          align="left"
+          eyebrow="Our position"
+          title="Not just chemicals — a solution that cuts cost and risk"
+        />
+        <p class="mt-5 leading-relaxed text-slate-600">
+          We do not compete on “low price” and “good quality” alone — those claims have no
+          differentiation. Our position is simple: provide stable chemicals, on-site
+          testing and continuous technical support, so customers lower their water-treatment
+          operating cost, stabilise results and reduce supply risk.
+        </p>
+        <p class="mt-4 leading-relaxed text-slate-600">
+          What you receive is not just PAC, PAM or PFS. It is a complete supply programme:
+          matched product grades, dosage guidance and reliable delivery.
+        </p>
+      </div>
+      <div class="space-y-4">
+        {productLines.map((line) => (
+          <div class="flex items-start gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-navy-50 text-navy-700">
+              <Icon name={line.icon} class="h-5 w-5" />
+            </span>
+            <div>
+              <p class="font-display font-bold text-navy-900">{line.name}</p>
+              <p class="mt-1 text-sm text-slate-600">{line.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Company intro -->
+  <section class="bg-slate-50 py-16 sm:py-20">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Who we are"
+        title="A comprehensive water-treatment chemicals supplier"
+      />
+      <div class="mx-auto mt-8 max-w-3xl space-y-4 text-center leading-relaxed text-slate-600">
+        <p>
+          Efan Chem is a supplier focused on the R&amp;D, production and export of
+          water-treatment chemicals. Our core products include polyacrylamide,
+          polyaluminium chloride, polyferric sulfate, ferrous sulfate, activated carbon
+          and related functional chemicals.
+        </p>
+        <p>
+          We serve municipal wastewater, industrial wastewater, mining, coal, paper,
+          textile, food processing, stone processing, drinking water and sludge
+          dewatering. We deliver integrated solutions from product selection and sample
+          testing to process optimisation and bulk delivery.
+        </p>
+        <p>
+          We do not only sell standard chemicals — we recommend product specifications,
+          technical parameters, dosing guidance and supply plans matched to your water
+          quality, sludge properties, treatment equipment and local regulations, helping
+          you cut consumption, improve settling and dewatering, and control cost.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QC -->
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Quality control"
+        title="Batch-to-batch stability is the real product"
+        subtitle="Customers do not care only about a sample — they care that every batch behaves the same."
+      />
+      <div class="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {qcItems.map((item) => (
+          <div class="flex items-start gap-2.5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <Icon name="shield-check" class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" />
+            <span class="text-sm font-medium text-navy-900">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Export & customisation -->
+  <section class="bg-slate-50 py-16 sm:py-20">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Export & customisation"
+        title="Flexible supply, built for export"
+        subtitle="Packaging, documents and logistics configured for your market and your brand."
+      />
+      <div class="mx-auto mt-12 flex max-w-3xl flex-wrap justify-center gap-3">
+        {exportItems.map((item) => (
+          <span class="rounded-full border border-teal-200 bg-white px-4 py-2 text-sm font-medium text-teal-700">
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>
